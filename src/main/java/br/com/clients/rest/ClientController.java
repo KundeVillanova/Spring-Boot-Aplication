@@ -1,6 +1,5 @@
 package br.com.clients.rest;
 
-
 import br.com.clients.Repository.ClientRepository;
 import br.com.clients.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -21,10 +21,9 @@ public class ClientController {
     }
 
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody Client client){
+    public Client save(@RequestBody @Valid  Client client){
         return repository.save(client);
     }
 
