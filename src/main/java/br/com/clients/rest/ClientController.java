@@ -11,10 +11,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/clients")
+@CrossOrigin("http://localhost:4200")
 public class ClientController {
 
     private final ClientRepository repository;
-
     @Autowired
     public ClientController(ClientRepository repository){
         this.repository=repository;
@@ -31,7 +31,6 @@ public class ClientController {
     public Client findClient(@PathVariable Integer id){
         return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable Integer id){
@@ -40,7 +39,6 @@ public class ClientController {
             return Void.TYPE;
         }).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
     @PutMapping("{id}")
     public void updateClient(@PathVariable Integer id, @RequestBody Client clientup){
         repository.findById(id).map(client -> {
