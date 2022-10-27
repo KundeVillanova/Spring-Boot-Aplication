@@ -24,6 +24,7 @@ public class ClientController {
 
     @GetMapping
     public List<Client> getAll(){
+        //metodo que vai listar os clientes
         return repository.findAll();
     }
 
@@ -33,10 +34,13 @@ public class ClientController {
         return repository.save(client);
     }
 
+
     @GetMapping("{id}")
     public Client findClient(@PathVariable Integer id){
         return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable Integer id){
@@ -45,6 +49,8 @@ public class ClientController {
             return Void.TYPE;
         }).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+
     @PutMapping("{id}")
     public void updateClient(@PathVariable Integer id, @RequestBody Client clientup){
         repository.findById(id).map(client -> {
