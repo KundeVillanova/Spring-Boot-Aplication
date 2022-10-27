@@ -1,6 +1,7 @@
 package br.com.clients.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,7 @@ public class Product {
     private BigDecimal price;
 
     @Column
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
 }

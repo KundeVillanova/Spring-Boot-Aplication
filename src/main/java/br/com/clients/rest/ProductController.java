@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -25,6 +26,7 @@ public class ProductController {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
     private final BigDecimalConverter bigDecimalConverter;
+
 
 
     @PostMapping
@@ -43,5 +45,15 @@ public class ProductController {
         product.setPrice(bigDecimalConverter.converter(dto.getPrice()));
         return productRepository.save(product);
     }
+
+    @GetMapping
+    public List<Product> pesquisar(
+            @RequestParam(value = "name", required = false, defaultValue = "")String name,
+            @RequestParam(value = "mes", required = false)Integer mes)
+    {
+        return productRepository.findByNameAndMes("%"+name +"%", mes);
+    }
+
+
 
 }
