@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -31,9 +32,7 @@ public class Product {
     @Column
     private BigDecimal price;
 
-
-
-
-
+    @Column
+    private LocalDate data;
 
 }
