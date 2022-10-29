@@ -1,6 +1,5 @@
 package br.com.clients.rest;
 
-
 import br.com.clients.Repository.ClientRepository;
 import br.com.clients.Repository.ProductRepository;
 import br.com.clients.model.Client;
@@ -12,7 +11,6 @@ import net.bytebuddy.asm.Advice;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -28,12 +26,12 @@ public class ProductController {
     private final BigDecimalConverter bigDecimalConverter;
 
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product save(@RequestBody ProductDTO dto){
         LocalDate data = LocalDate.parse(dto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Integer idClient = dto.getIdClient();
+
         Client client = clientRepository.findById(idClient).orElseThrow(()-> new ResponseStatusException(
            HttpStatus.BAD_REQUEST, "Cliente não existe"
         ));
