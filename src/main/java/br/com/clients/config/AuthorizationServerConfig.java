@@ -26,13 +26,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        //gerar tokens jwt
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //login e senha da aplicacao NAO É DO USUARIO
+        //login e senha da aplicacao NAO É DO USUARIO, vai dar o token que da aceso a /api/clients
         clients.inMemory()
                 .withClient("my-angular-app")
                 .secret("@123")

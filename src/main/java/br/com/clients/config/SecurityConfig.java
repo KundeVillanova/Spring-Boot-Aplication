@@ -1,5 +1,7 @@
 package br.com.clients.config;
 
+import br.com.clients.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,10 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UsuarioService usuarioService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("fulano").password("123").roles("USER");
+        //achar users da base de dados
+        auth.userDetailsService(usuarioService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Bean
